@@ -1,0 +1,20 @@
+<!-- show event -->
+<h1>Event details</h1>
+
+<h2> <%= @event.name %> </h2>
+<%= @event.date %>
+<%= @event.location %>
+
+<h2>Attendees:</h2>
+<ul>
+  <% @attendees.each do |attendee| %>
+    <li><%= attendee.email %></li>
+  <% end %>
+</ul>
+
+
+<% if current_user.attended_events.include?(@event) %>
+  <%= link_to "Leave", leave_event_path(@event), data: { 'turbo-method' => :delete } %>
+<% else %>
+  <%= link_to "Join", join_event_path(@event), data: { 'turbo-method' => :post } %>
+<% end %>
